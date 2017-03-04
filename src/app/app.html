@@ -1,0 +1,19 @@
+<ion-menu [content]="content">
+  <ion-header>
+    <ion-toolbar>
+      <ion-title>Seville DrupalDevDays</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-content>
+    <ion-list>
+      <ion-list-header>Program</ion-list-header>
+
+      <button menuClose ion-item *ngFor="let page of pages" (click)="goToDay(page)">
+        {{page.date.format('DD dddd').toUpperCase()}}
+      </button>
+    </ion-list>
+  </ion-content>
+</ion-menu>
+
+<ion-nav #content swipeBackEnabled="false"></ion-nav>

@@ -1,0 +1,29 @@
+page-detail {
+
+  .session-info {
+
+    ion-icon {
+      margin-right: 1rem;
+
+      &.level {
+        font-size: 1.2rem;
+      }
+    }
+  }
+
+  .speakers {
+    margin: 0 -16px;
+  }
+
+  .add-to-calendar-button {
+    label {
+      display: block !important;
+    }
+  }
+
+  .description {
+    white-space: pre-line;
+    line-height: 2.1rem;
+  }
+
+}

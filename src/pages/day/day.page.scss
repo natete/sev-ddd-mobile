@@ -1,0 +1,37 @@
+page-day {
+
+  ion-item-divider.item-divider {
+    background-color: map_get($colors, header);
+    font-weight: bold;
+  }
+
+  ion-item {
+    border-top: 1px solid black;
+
+    &[ddd-level='Beginner'] {
+      background-color: map-get($colors, beginner);
+    }
+
+    &[ddd-level='Intermediate'] {
+      background-color: map-get($colors, intermediate);
+    }
+
+    &[ddd-level='Advanced'] {
+      background-color: map-get($colors, advanced);
+    }
+  }
+
+  .session-name {
+    white-space: normal;
+    margin-bottom: 20px;
+  }
+
+  .speaker-name {
+    font-size: 1.2rem;
+  }
+
+  .venue {
+    font-size: 1.2rem;
+    color: map-get($colors, secondary-text);
+  }
+}

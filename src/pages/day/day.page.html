@@ -1,0 +1,32 @@
+<ion-header>
+
+  <ion-navbar>
+    <button menuToggle ion-button>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>{{title}}</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+
+  <ion-list [virtualScroll]="sessions" [headerFn]="getHeader" approxItemHeight="150px">
+
+    <ion-item-divider *virtualHeader="let header">{{header}}</ion-item-divider>
+
+    <ion-item *virtualItem="let session" [attr.ddd-level]="session.level" (click)="goToSession(session)">
+      <ion-avatar item-left>
+        <img [src]="sessionIcons[session.target || 'poison']">
+      </ion-avatar>
+      <div [class]="session.level">
+        <h2 class="session-name">{{session.name}}</h2>
+        <div *ngFor="let speaker of session.speakers" class="speaker-name"><strong>{{speaker.name}}</strong></div>
+      </div>
+      <div class="venue" text-center>- {{session.venue || 'No venue yet'}} -</div>
+    </ion-item>
+
+  </ion-list>
+
+</ion-content>

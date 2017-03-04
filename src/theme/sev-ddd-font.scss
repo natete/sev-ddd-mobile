@@ -1,0 +1,57 @@
+@import "sev-ddd-font-variables";
+
+@mixin makeIcon($arg, $val) {
+  .ion-ios-#{$arg}:before ,
+  .ion-ios-#{$arg}-circle:before ,
+  .ion-ios-#{$arg}-circle-outline:before ,
+  .ion-ios-#{$arg}-outline:before ,
+  .ion-md-#{$arg}:before ,
+  .ion-md-#{$arg}-circle:before ,
+  .ion-md-#{$arg}-circle-outline:before ,
+  .ion-md-#{$arg}-outline:before  {
+    content: $val;
+  }
+}
+
+@font-face {
+  font-family: 'sev-ddd';
+  src:  url('#{$icomoon-font-path}/sev-ddd.eot?u5b4q2');
+  src:  url('#{$icomoon-font-path}/sev-ddd.eot?u5b4q2#iefix') format('embedded-opentype'),
+    url('#{$icomoon-font-path}/sev-ddd.ttf?u5b4q2') format('truetype'),
+    url('#{$icomoon-font-path}/sev-ddd.woff?u5b4q2') format('woff'),
+    url('#{$icomoon-font-path}/sev-ddd.svg?u5b4q2#sev-ddd') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+[class^="sev-ddd-icon-"], [class*="sev-ddd-icon-"] {
+  //@extend .icon;
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'sev-ddd' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+@include makeIcon(sev-ddd-icon-olas, $sev-ddd-icon-olas);
+@include makeIcon(sev-ddd-icon-advanced, $sev-ddd-icon-advanced);
+@include makeIcon(sev-ddd-icon-intermediate, $sev-ddd-icon-intermediate);
+@include makeIcon(sev-ddd-icon-beginner, $sev-ddd-icon-beginner);
+@include makeIcon(sev-ddd-icon-being-human, $sev-ddd-icon-being-human);
+@include makeIcon(sev-ddd-icon-case-studies, $sev-ddd-icon-case-studies);
+@include makeIcon(sev-ddd-icon-development, $sev-ddd-icon-development);
+@include makeIcon(sev-ddd-icon-devops, $sev-ddd-icon-devops);
+@include makeIcon(sev-ddd-icon-frontend, $sev-ddd-icon-frontend);
+@include makeIcon(sev-ddd-icon-other, $sev-ddd-icon-other);
+@include makeIcon(sev-ddd-icon-performance, $sev-ddd-icon-performance);
+@include makeIcon(sev-ddd-icon-poison, $sev-ddd-icon-poison);
+@include makeIcon(sev-ddd-icon-site-building, $sev-ddd-icon-site-building);
+
+
