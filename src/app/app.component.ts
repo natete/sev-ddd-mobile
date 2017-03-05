@@ -1,9 +1,10 @@
 import { Component, ViewChild } from '@angular/core';
 import { Platform, Nav } from 'ionic-angular';
-import { StatusBar, Splashscreen } from 'ionic-native';
-
+import { StatusBar } from '@ionic-native/statusbar';
+import { Splashscreen } from '@ionic-native/splashscreen';
 import * as moment from 'moment';
 import { DayPage } from '../pages/day/day.page';
+import { CalendarService } from '../providers/calendar/calendar.service';
 
 @Component({
   templateUrl: 'app.html'
@@ -19,7 +20,8 @@ export class MyApp {
     { date: moment('2017-03-25') }
   ];
 
-  constructor(platform: Platform) {
+  constructor(platform: Platform,
+              private calendarService: CalendarService) {
     platform.ready()
             .then(() => {
               // Okay, so the platform is ready and our plugins are available.
@@ -27,10 +29,16 @@ export class MyApp {
               StatusBar.styleDefault();
               Splashscreen.hide();
 
-              const now = moment();
-
-              this.nav.setRoot(DayPage, (this.pages.find(page => now.isSame(page.date)) || this.pages[0]).date.format('YYYY-MM-D'))
+              this.calendarService
+                  .init()
+                  .then(() => this.goToFirstDay());
             });
+  }
+
+  private goToFirstDay() {
+    const now = moment();
+
+    this.nav.setRoot(DayPage, (this.pages.find(page => now.isSame(page.date)) || this.pages[0]).date.format('YYYY-MM-D'))
   }
 
   goToDay(toPage) {

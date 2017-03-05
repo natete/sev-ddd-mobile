@@ -2,16 +2,14 @@ import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
 import { Observable } from 'rxjs';
-import { Session } from './Session';
+import { Session } from './session';
 
 @Injectable()
 export class SessionsService {
 
   private baseUrl = 'https://sev-ddd.firebaseio.com';
 
-  constructor(private http: Http) {
-    console.log('Hello SessionsService Provider');
-  }
+  constructor(private http: Http) { }
 
   getSessions(date: string): Observable<Session[]> {
     return this.http

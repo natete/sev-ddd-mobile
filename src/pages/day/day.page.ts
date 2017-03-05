@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams, LoadingController } from 'ionic-angular';
 import * as moment from 'moment';
-import { Session } from '../../providers/Session';
-import { SessionsService } from '../../providers/sessions.service';
+import { Session } from '../../providers/session/session';
+import { SessionsService } from '../../providers/session/sessions.service';
 import 'rxjs/add/operator/do';
 import { Subscription } from 'rxjs';
 import { DetailPage } from '../detail/detail.page';
@@ -54,9 +54,9 @@ export class DayPage {
 
   getHeader(record, recordIndex, records): string {
     if (recordIndex === 0) {
-      return record.time;
+      return record.startTime;
     } else {
-      return record.time === records[recordIndex - 1].time ? null : record.time;
+      return record.startTime === records[recordIndex - 1].startTime ? null : record.startTime;
     }
   }
 
