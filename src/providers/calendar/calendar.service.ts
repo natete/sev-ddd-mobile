@@ -49,18 +49,11 @@ export class CalendarService {
   }
 
   addSession(session: Session, date: string): Promise<any> {
-    if (this.hasReadWritePermission) {
-      return this.addSessionToDDDCalendar(session, date);
-    } else {
-      return Calendar.requestReadWritePermission()
-                     .then(
-                       () => {
-                         this.hasReadWritePermission = true;
-                         return this.addSessionToDDDCalendar(session, date)
-                       },
-                       () => Promise.reject(null)
-                     );
-    }
+    return this.initDDDCalendar()
+               .then(
+                 () => this.createSession(session, date),
+                 () => this.hasReadWritePermission = false
+               );
   }
 
   private handleListOfCalendars(calendars: any[]): Promise<any> {
@@ -75,14 +68,6 @@ export class CalendarService {
         .createCalendar(this.CALENDAR_OPTIONS)
         .then(calendarId => this.CALENDAR_OPTIONS.calendarId = calendarId);
     }
-  }
-
-  private addSessionToDDDCalendar(session: Session, date: string): Promise<void> {
-    return this.initDDDCalendar()
-               .then(
-                 () => this.createSession(session, date),
-                 () => this.hasReadWritePermission = false
-               );
   }
 
   private createSession(session: Session, date: string): Promise<void> {
@@ -106,7 +91,7 @@ export class CalendarService {
         this.CALENDAR_OPTIONS
       )
       .then(event => {
-        if (event) {
+        if (event && event.length) {
           return Promise.resolve();
         } else {
           return Calendar.createEventWithOptions(

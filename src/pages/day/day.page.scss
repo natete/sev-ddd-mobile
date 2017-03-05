@@ -8,16 +8,18 @@ page-day {
   ion-item {
     border-top: 1px solid black;
 
+    background-color: white !important;
+
     &[ddd-level='Beginner'] {
-      background-color: map-get($colors, beginner);
+      background-color: map-get($colors, beginner) !important;
     }
 
     &[ddd-level='Intermediate'] {
-      background-color: map-get($colors, intermediate);
+      background-color: map-get($colors, intermediate) !important;
     }
 
     &[ddd-level='Advanced'] {
-      background-color: map-get($colors, advanced);
+      background-color: map-get($colors, advanced) !important;
     }
   }
 
