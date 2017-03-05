@@ -1,7 +1,7 @@
 {
-  "name": "ionic-hello-world",
-  "author": "Ionic Framework",
-  "homepage": "http://ionicframework.com/",
+  "name": "DrupalDevDays",
+  "author": "natete981@gmail.com",
+  "homepage": "https://seville2017.drupaldays.org/",
   "private": true,
   "scripts": {
     "clean": "ionic-app-scripts clean",
@@ -45,9 +45,5 @@
     "ionic-plugin-keyboard"
   ],
   "cordovaPlatforms": [],
-  "description": "sev-ddd: An Ionic project",
-  "config": {
-    "ionic_bundler": "webpack",
-    "ionic_source_map": "eval"
-  }
+  "description": "DrupalDevDays: App providing the program of Seville DrupalDevDays 2017"
 }
