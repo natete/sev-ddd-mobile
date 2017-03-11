@@ -44,7 +44,10 @@ export class DayPage {
 
     loader.present();
 
-    this.subscription = this.sessionsService.getSessions(this.navParams.data)
+    // this.sessionsService.getProgram('21 TUESDAY')
+    //     .subscribe(res => console.log(res));
+
+    this.subscription = this.sessionsService.getProgram(this.navParams.data)
                             .do(sessions => loader.dismissAll())
                             .subscribe(sessions => {
                               this.sessions = sessions;

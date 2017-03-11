@@ -21,6 +21,7 @@
         <img [src]="sessionIcons[session.target || 'poison']">
       </ion-avatar>
       <div [class]="session.level">
+        <p class="session-type">{{session.type}}</p>
         <h2 class="session-name">{{session.name}}</h2>
         <div *ngFor="let speaker of session.speakers" class="speaker-name"><strong>{{speaker.name}}</strong></div>
       </div>

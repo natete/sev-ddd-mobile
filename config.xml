@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <widget id="com.ionicframework.sevddd779836" version="0.0.1" xmlns="http://www.w3.org/ns/widgets">
-    <name>DrupalDevDays</name>
-    <description>App providing the program of Seville DrupalDevDays 2017</description>
-    <author email="natete981@gmail.com" href="https://github.com/natete">natete</author>
+  <name>DrupalDevDays</name>
+  <description>App providing the program of Seville DrupalDevDays 2017</description>
+  <author email="natete981@gmail.com" href="https://github.com/natete">natete</author>
   <content src="index.html"/>
   <access origin="*"/>
   <allow-navigation href="http://ionic.local/*"/>
   <allow-navigation href="http://192.168.1.104:8100"/>
+  <allow-navigation href="http://192.168.1.102:8100"/>
   <allow-intent href="http://*/*"/>
   <allow-intent href="https://*/*"/>
   <allow-intent href="tel:*"/>

@@ -104,7 +104,5 @@ export class CalendarService {
           );
         }
       });
-
   }
-
 }

@@ -11,7 +11,7 @@ export class Session {
   description?: string;
   venue?: string;
 
-  constructor(session: any) {
+  constructor(session: any = {}) {
     this.name = session.name;
     this.startTime = session.startTime;
     this.endTime = session.endTime;
