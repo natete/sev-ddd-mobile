@@ -14,45 +14,57 @@
 
 
 <ion-content padding>
-  <h1>{{session.name}}</h1>
+  <ng-container *ngIf="session">
+    <h1>{{session.name}}</h1>
 
-  <ion-row class="session-info">
-    <ion-col col-6>
-      <ion-icon name="{{'sev-ddd-icon-' + session.level.toLowerCase()}}" class="level"></ion-icon>
-      {{session.level}}
-    </ion-col>
+    <ion-row class="session-info" *ngIf="session.type === 'keynote'">
+      <ion-col col-6>
+        <ion-icon name="{{'sev-ddd-icon-' + session.level.toLowerCase()}}" class="level"></ion-icon>
+        {{session.level}}
+      </ion-col>
 
-    <ion-col col-6>
-      <ion-icon name="{{'sev-ddd-icon-' + session.target.toLowerCase().replace(' ', '-')}}"></ion-icon>
-      {{session.target}}
-    </ion-col>
+      <ion-col col-6>
+        <ion-icon name="{{'sev-ddd-icon-' + session.target.toLowerCase().replace(' ', '-')}}"></ion-icon>
+        {{session.target}}
+      </ion-col>
 
-  </ion-row>
+    </ion-row>
 
-  <ion-row>
-    <ion-col col-6>{{session.type}}</ion-col>
-    <ion-col col-6>{{session.venue}}</ion-col>
-  </ion-row>
+    <ion-row>
+      <ion-col col-6>{{session.type}}</ion-col>
+      <ion-col col-6>{{session.venue}}</ion-col>
+    </ion-row>
 
-  <ion-list class="speakers">
-    <ion-item *ngFor="let speaker of session.speakers">
-      <ion-avatar item-left>
-        <img [src]="speaker.avatar">
-      </ion-avatar>
+    <ion-list class="speakers">
+      <ion-item *ngFor="let speaker of session.speakers">
+        <ion-avatar item-left>
+          <img [src]="speaker.avatar">
+        </ion-avatar>
 
-      <h2>{{speaker.name}}</h2>
-      <p>{{speaker.nickname}}</p>
-    </ion-item>
-  </ion-list>
+        <h2>{{speaker.name}}</h2>
+        <p text-uppercase>{{speaker.nickname || speaker.position}}</p>
+        <p class="speaker-bio">{{speaker.bio}}</p>
+      </ion-item>
+    </ion-list>
 
-  <button ion-button block color="dark" large class="add-to-calendar-button" (click)="addToCalendar()">
-    <div>
-      <label>Add to calendar</label>
-      <ion-icon name="sev-ddd-icon-olas"></ion-icon>
-    </div>
-  </button>
+    <button ion-button block color="dark" large class="add-to-calendar-button" (click)="addToCalendar()">
+      <div>
+        <label>Add to calendar</label>
+        <ion-icon name="sev-ddd-icon-olas"></ion-icon>
+      </div>
+    </button>
 
-  <ion-row>
-    <p class="description">{{session.description}}</p>
-  </ion-row>
+    <ion-row>
+      <p class="description" [innerHTML]="session.description"></p>
+    </ion-row>
+
+    <ion-row *ngIf="session.type === 'keynote'">
+      <h2 text-uppercase="">The Company</h2>
+      <h3 class="company-name">{{session.companyName}}</h3>
+      <div>
+        <img class="company-logo" [src]="session.companyLogo">
+      </div>
+      <p>{{session.companyBio}}</p>
+    </ion-row>
+  </ng-container>
 </ion-content>

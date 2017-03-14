@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, ToastController } from 'ionic-angular';
-import { Session } from '../../providers/session/session';
+import { NavController, NavParams, ToastController, LoadingController } from 'ionic-angular';
 import * as moment from 'moment';
+import 'rxjs/add/operator/do';
+import { Session } from '../../providers/session/session';
 import { CalendarService } from '../../providers/calendar/calendar.service';
+import { SessionsService } from '../../providers/session/sessions.service';
 
 @Component({
   selector: 'page-detail',
@@ -16,15 +18,30 @@ export class DetailPage {
 
   constructor(private navCtrl: NavController,
               private navParams: NavParams,
+              private loadingCtrl: LoadingController,
               private toastCtrl: ToastController,
-              private calendarService: CalendarService) {
-    this.session = new Session(this.navParams.data.session);
+              private calendarService: CalendarService,
+              private sessionsService: SessionsService) {
+  }
+
+  ionViewDidLoad() {
+    const loader = this.loadingCtrl.create({
+      content: 'Loading session...'
+    });
+
+    loader.present();
+
+    // this.session = new Session(this.navParams.data.session);
 
     this.sessionDate = this.navParams.data.date;
 
     this.title = moment(this.navParams.data.date)
         .format('DD dddd')
-        .toLocaleUpperCase() + ` - ${this.session.startTime}`;
+        .toLocaleUpperCase() + ` - ${this.navParams.data.session.startTime}`;
+
+    this.sessionsService.getSession(this.navParams.data.session)
+        .do(() => loader.dismissAll())
+        .subscribe(session => this.session = session);
   }
 
   addToCalendar(): void {

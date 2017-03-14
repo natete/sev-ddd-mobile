@@ -5,14 +5,15 @@ import { Observable, Subject } from 'rxjs';
 import { Session } from './session';
 import { RawSession } from './raw-session';
 import { Speaker } from './speaker';
+import { Utils } from '../../shared/utils';
 
 @Injectable()
 export class SessionsService {
 
-  private readonly baseUrl = 'https://sev-ddd.firebaseio.com';
-  private readonly drupalUrl = 'http://192.168.1.102/jlbellido/api';
+  // private readonly baseUrl = 'https://sev-ddd.firebaseio.com';
+  private readonly drupalUrl = 'http://10.35.1.99/jlbellido/api';
   private readonly dates = {
-    '2017-03-21': 60
+    '2017-03-21': 55
   };
 
   private userIds: Set<string>;
@@ -21,23 +22,30 @@ export class SessionsService {
   constructor(private http: Http) {
   }
 
-  getSessions(date: string): Observable<Session[]> {
-    return this.http
-               .get(`${this.baseUrl}/${date}.json`)
-               .map(data => data.json().sessions as Session[]);
-  }
+  // getSessions(date: string): Observable<Session[]> {
+  //   return this.http
+  //              .get(`${this.baseUrl}/${date}.json`)
+  //              .map(data => data.json().sessions as Session[]);
+  // }
 
   getProgram(date: string): Observable<Session[]> {
     this.sessionsStream = new Subject<Session[]>();
     this.userIds = new Set<string>();
     const dateCode = this.dates[date];
     this.http
-        .get(`${this.drupalUrl}/program/${dateCode}`)
+        .get(`${this.drupalUrl}/program/${dateCode}?_format=json`)
         .map(data => data.json() as RawSession[])
         .map(rawSessions => rawSessions.map(rawSession => this.transformToSession(rawSession)))
         .subscribe(sessions => this.addSpeakersToSession(sessions));
 
     return this.sessionsStream.asObservable();
+  }
+
+  getSession(session: Session): Observable<Session> {
+    return this.http
+               .get(`${this.drupalUrl}/sessions/${session.id}?_format=json`)
+               .map(data => data.json()[0] as RawSession)
+               .map(rawSession => this.addDetailsToSession(rawSession, session));
   }
 
   private addSpeakersToSession(sessions: Session[]) {
@@ -78,16 +86,16 @@ export class SessionsService {
     session.startTime = startEndTime[0];
     session.endTime = startEndTime[1];
     session.type = rawSession.field_session_type || rawSession.type;
+    session.id = rawSession.nid;
 
     if (rawSession.field_break_title) {
       session.name = rawSession.field_break_title;
       session.venue = rawSession.field_break_title;
     } else {
       session.name = rawSession.title;
-      session.description = rawSession.body;
       session.venue = rawSession.field_room;
       session.level = rawSession.field_session_level;
-      session.target = rawSession.field_session_track_type;
+      session.target = Utils.toCamelCase(rawSession.field_session_track_type);
 
       if (rawSession.field_speaker_full_name) {
         const speaker = {
@@ -102,5 +110,22 @@ export class SessionsService {
     }
 
     return session;
+  }
+
+  private addDetailsToSession(rawSession: RawSession, session: Session): Session {
+    const result = new Session(session);
+
+    result.speakers = session.speakers;
+    result.description = rawSession.body;
+
+    if (result.type === 'keynote') {
+      result.speakers[0].position = rawSession.field_speaker_position;
+      result.speakers[0].bio = rawSession.field_speaker_bio;
+      result.companyName = rawSession.field_company_name;
+      result.companyLogo = 'http://i.cdn.turner.com/nba/nba/.element/img/1.0/teamsites/logos/teamlogos_500x500/lal.png';
+      result.companyBio = rawSession.field_company_bio;
+    }
+
+    return result;
   }
 }

@@ -13,6 +13,11 @@ page-detail {
 
   .speakers {
     margin: 0 -16px;
+
+    .speaker-bio {
+      text-overflow: initial;
+      white-space: initial;
+    }
   }
 
   .add-to-calendar-button {
@@ -26,4 +31,11 @@ page-detail {
     line-height: 2.1rem;
   }
 
+  .company-name {
+    width: 100%;
+  }
+
+  .company-logo {
+    max-width: 50%;
+  }
 }

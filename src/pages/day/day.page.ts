@@ -17,14 +17,14 @@ export class DayPage {
   sessions: Session[] = [];
   title: string;
   sessionIcons = {
-    Development: 'assets/images/development.svg',
-    Frontend: 'assets/images/frontend.svg',
-    'Being human': 'assets/images/being-human.svg',
-    'Case studies': 'assets/images/case-studies.svg',
-    Devops: 'assets/images/devops.svg',
-    Performance: 'assets/images/performance.svg',
-    Other: 'assets/images/other.svg',
-    'Site building': 'assets/images/site-building.svg',
+    development: 'assets/images/development.svg',
+    frontend: 'assets/images/frontend.svg',
+    beingHuman: 'assets/images/being-human.svg',
+    caseStudies: 'assets/images/case-studies.svg',
+    devops: 'assets/images/devops.svg',
+    performance: 'assets/images/performance.svg',
+    other: 'assets/images/other.svg',
+    siteBuilding: 'assets/images/site-building.svg',
     poison: 'assets/images/poison.svg'
   };
 

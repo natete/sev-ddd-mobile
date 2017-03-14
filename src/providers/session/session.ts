@@ -1,10 +1,17 @@
 import { Speaker } from './speaker';
+import { Utils } from '../../shared/utils';
 
 export class Session {
+  id: string;
   name: string;
   startTime: string;
   endTime: string;
   speakers?: Speaker[];
+  speakerBio?: string;
+  speakerPosition?: string;
+  companyName?: string;
+  companyLogo?: string;
+  companyBio?: string;
   level?: string;
   target?: string;
   type?: string;
@@ -12,12 +19,18 @@ export class Session {
   venue?: string;
 
   constructor(session: any = {}) {
+    this.id = session.id;
     this.name = session.name;
     this.startTime = session.startTime;
     this.endTime = session.endTime;
     this.speakers = session.speakers;
+    this.speakerBio = session.speakerBio;
+    this.speakerPosition = session.speakerPosition;
+    this.companyName = session.companyName;
+    this.companyLogo = session.companyLogo;
+    this.companyBio = session.companyBio;
     this.level = session.level;
-    this.target = session.target;
+    this.target = Utils.toCamelCase(session.target);
     this.type = session.type;
     this.description = session.description;
     this.venue = session.venue;
