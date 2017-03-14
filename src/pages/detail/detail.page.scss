@@ -17,6 +17,7 @@ page-detail {
     .speaker-bio {
       text-overflow: initial;
       white-space: initial;
+      margin-top: 2rem;
     }
   }
 
@@ -26,16 +27,20 @@ page-detail {
     }
   }
 
-  .description {
+  .description,
+  .speaker-bio p,
+  .company-bio {
     white-space: pre-line;
     line-height: 2.1rem;
   }
 
-  .company-name {
-    width: 100%;
-  }
-
   .company-logo {
     max-width: 50%;
+  }
+
+  .company-header,
+  .company-name {
+    width: 100%;
+    margin-bottom: 2rem;
   }
 }

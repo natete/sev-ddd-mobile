@@ -5,28 +5,27 @@ page-day {
     font-weight: bold;
   }
 
-  ion-item {
-    border-top: 1px solid black;
+  ion-item.schedule-row {
+    border-top: 1px solid map-get($colors, light);
 
     background-color: white !important;
 
-    &[ddd-level='Beginner'] {
-      background-color: map-get($colors, beginner) !important;
+    .target-icon {
+      border-radius: 0;
     }
 
-    &[ddd-level='Intermediate'] {
-      background-color: map-get($colors, intermediate) !important;
-    }
-
-    &[ddd-level='Advanced'] {
-      background-color: map-get($colors, advanced) !important;
+    .item-inner {
+      border: 0 !important;
     }
   }
 
-  .session-type {
-    text-align: right;
+  .session-info {
     font-size: 1.2rem;
     color: map-get($colors, secondary-text);
+
+    span:nth-child(2) {
+      float: right;
+    }
   }
 
   .session-name {

@@ -16,13 +16,13 @@
 
     <ion-item-divider *virtualHeader="let header">{{header}}</ion-item-divider>
 
-    <ion-item *virtualItem="let session" [attr.ddd-level]="session.level" (click)="goToSession(session)">
+    <ion-item *virtualItem="let session" class="schedule-row" (click)="goToSession(session)">
       <ion-avatar item-left>
-        <img [src]="sessionIcons[session.target || 'poison']">
+        <img class="target-icon" [src]="sessionIcons[session.target || 'poison']">
       </ion-avatar>
-      <div [class]="session.level">
-        <p class="session-type">{{session.type}}</p>
-        <h2 class="session-name">{{session.name}}</h2>
+      <div>
+        <p class="session-info"><span text-capitalize>{{session.type}}</span><span text-capitalize>{{session.level}}</span></p>
+        <h2 class="session-name" [innerHtml]="session.name"></h2>
         <div *ngFor="let speaker of session.speakers" class="speaker-name"><strong>{{speaker.name}}</strong></div>
       </div>
       <div class="venue" text-center>- {{session.venue || 'No venue yet'}} -</div>

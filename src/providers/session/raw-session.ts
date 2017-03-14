@@ -10,6 +10,7 @@ export interface RawSession {
   field_speaker_bio: string;
   field_company_name: string;
   field_company_bio: string;
+  company_logo: string;
   uri: string;
   field_room: string;
   field_session_type: string;

@@ -10,10 +10,14 @@ import { Utils } from '../../shared/utils';
 @Injectable()
 export class SessionsService {
 
-  // private readonly baseUrl = 'https://sev-ddd.firebaseio.com';
-  private readonly drupalUrl = 'http://10.35.1.99/jlbellido/api';
+  private readonly drupalUrl = 'https://seville2017.drupaldays.org/api';
+
   private readonly dates = {
-    '2017-03-21': 55
+    '2017-03-21': 126,
+    '2017-03-22': 127,
+    '2017-03-23': 128,
+    '2017-03-24': 129,
+    '2017-03-25': 130,
   };
 
   private userIds: Set<string>;
@@ -22,20 +26,15 @@ export class SessionsService {
   constructor(private http: Http) {
   }
 
-  // getSessions(date: string): Observable<Session[]> {
-  //   return this.http
-  //              .get(`${this.baseUrl}/${date}.json`)
-  //              .map(data => data.json().sessions as Session[]);
-  // }
-
   getProgram(date: string): Observable<Session[]> {
     this.sessionsStream = new Subject<Session[]>();
     this.userIds = new Set<string>();
     const dateCode = this.dates[date];
     this.http
-        .get(`${this.drupalUrl}/program/${dateCode}?_format=json`)
+        .get(`${this.drupalUrl}/program/${dateCode}`)
         .map(data => data.json() as RawSession[])
         .map(rawSessions => rawSessions.map(rawSession => this.transformToSession(rawSession)))
+        .map(sessions => sessions.sort((s1, s2) => s1.startTime.localeCompare(s2.startTime)))
         .subscribe(sessions => this.addSpeakersToSession(sessions));
 
     return this.sessionsStream.asObservable();
@@ -43,7 +42,7 @@ export class SessionsService {
 
   getSession(session: Session): Observable<Session> {
     return this.http
-               .get(`${this.drupalUrl}/sessions/${session.id}?_format=json`)
+               .get(`${this.drupalUrl}/sessions/${session.id}`)
                .map(data => data.json()[0] as RawSession)
                .map(rawSession => this.addDetailsToSession(rawSession, session));
   }
@@ -75,7 +74,7 @@ export class SessionsService {
       id: rawUser.uid,
       name: rawUser.field_register_name,
       nickname: rawUser.name,
-      avatar: rawUser.uri
+      avatar: rawUser.uri || 'assets/images/avatar.svg'
     }
   }
 
@@ -122,7 +121,7 @@ export class SessionsService {
       result.speakers[0].position = rawSession.field_speaker_position;
       result.speakers[0].bio = rawSession.field_speaker_bio;
       result.companyName = rawSession.field_company_name;
-      result.companyLogo = 'http://i.cdn.turner.com/nba/nba/.element/img/1.0/teamsites/logos/teamlogos_500x500/lal.png';
+      result.companyLogo = rawSession.company_logo;
       result.companyBio = rawSession.field_company_bio;
     }
 

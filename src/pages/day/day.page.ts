@@ -21,7 +21,7 @@ export class DayPage {
     frontend: 'assets/images/frontend.svg',
     beingHuman: 'assets/images/being-human.svg',
     caseStudies: 'assets/images/case-studies.svg',
-    devops: 'assets/images/devops.svg',
+    devOps: 'assets/images/devops.svg',
     performance: 'assets/images/performance.svg',
     other: 'assets/images/other.svg',
     siteBuilding: 'assets/images/site-building.svg',
@@ -44,9 +44,6 @@ export class DayPage {
 
     loader.present();
 
-    // this.sessionsService.getProgram('21 TUESDAY')
-    //     .subscribe(res => console.log(res));
-
     this.subscription = this.sessionsService.getProgram(this.navParams.data)
                             .do(sessions => loader.dismissAll())
                             .subscribe(sessions => {
@@ -64,6 +61,8 @@ export class DayPage {
   }
 
   goToSession(session): void {
-    this.navCtrl.push(DetailPage, {session: session, date: this.navParams.data});
+    if (session.type) {
+      this.navCtrl.push(DetailPage, { session: session, date: this.navParams.data });
+    }
   }
 }
