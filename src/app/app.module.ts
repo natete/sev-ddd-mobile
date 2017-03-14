@@ -5,6 +5,7 @@ import { DayPage } from '../pages/day/day.page';
 import { SessionsService } from '../providers/session/sessions.service';
 import { DetailPage } from '../pages/detail/detail.page';
 import { CalendarService } from '../providers/calendar/calendar.service';
+import { NotificationsService } from '../providers/notifications/notifications.service';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { CalendarService } from '../providers/calendar/calendar.service';
   ],
   providers: [
     CalendarService,
+    NotificationsService,
     SessionsService,
     { provide: ErrorHandler, useClass: IonicErrorHandler }
   ]
