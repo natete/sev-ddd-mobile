@@ -35,7 +35,10 @@ export class SessionsService {
         .map(data => data.json() as RawSession[])
         .map(rawSessions => rawSessions.map(rawSession => this.transformToSession(rawSession)))
         .map((sessions: Session[]) => sessions.sort((s1, s2) => s1.startTime.localeCompare(s2.startTime)))
-        .subscribe(sessions => this.addSpeakersToSession(sessions));
+        .subscribe(
+          sessions => this.addSpeakersToSession(sessions),
+          () => this.sessionsStream.error(null)
+        );
 
     return this.sessionsStream.asObservable();
   }

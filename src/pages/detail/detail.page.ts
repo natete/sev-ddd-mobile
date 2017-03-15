@@ -13,6 +13,7 @@ import { SessionsService } from '../../providers/session/sessions.service';
 export class DetailPage {
 
   private sessionDate: string;
+  errorMessage: string;
   session: Session;
   title: string;
 
@@ -25,6 +26,8 @@ export class DetailPage {
   }
 
   ionViewDidLoad() {
+    this.errorMessage = null;
+
     const loader = this.loadingCtrl.create({
       content: 'Loading session...'
     });
@@ -41,7 +44,13 @@ export class DetailPage {
 
     this.sessionsService.getSession(this.navParams.data.session)
         .do(() => loader.dismissAll())
-        .subscribe(session => this.session = session);
+        .subscribe(
+          session => this.session = session,
+          () => {
+            loader.dismissAll();
+            this.errorMessage = 'Error getting session details';
+          }
+        );
   }
 
   addToCalendar(): void {

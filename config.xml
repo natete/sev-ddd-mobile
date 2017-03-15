@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<widget id="com.emergya.drupaldevdays" version="0.0.2" xmlns="http://www.w3.org/ns/widgets">
-  <name>DrupalDevDays</name>
+<widget id="com.emergya.ddevdays" version="0.0.2" xmlns="http://www.w3.org/ns/widgets">
+  <name>DDevDays</name>
   <description>App providing the program of Seville DrupalDevDays 2017</description>
   <author email="natete981@gmail.com" href="https://github.com/natete">natete</author>
   <content src="index.html"/>
   <access origin="*"/>
   <allow-navigation href="*.devicepush.com"/>
   <allow-navigation href="http://ionic.local/*"/>
+  <allow-navigation href="http://10.35.1.99:8100"/>
   <allow-intent href="http://*/*"/>
   <allow-intent href="https://*/*"/>
   <allow-intent href="tel:*"/>

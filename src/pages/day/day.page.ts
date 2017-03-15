@@ -14,6 +14,7 @@ import { DetailPage } from '../detail/detail.page';
 export class DayPage {
 
   private subscription: Subscription;
+  errorMessage: string;
   sessions: Session[] = [];
   title: string;
   sessionIcons = {
@@ -38,6 +39,8 @@ export class DayPage {
   }
 
   ionViewDidLoad() {
+    this.errorMessage = null;
+
     const loader = this.loadingCtrl.create({
       content: 'Loading sessions...'
     });
@@ -46,10 +49,15 @@ export class DayPage {
 
     this.subscription = this.sessionsService.getProgram(this.navParams.data)
                             .do(sessions => loader.dismissAll())
-                            .subscribe(sessions => {
-                              this.sessions = sessions;
-                              this.subscription.unsubscribe();
-                            });
+                            .subscribe(
+                              sessions => {
+                                this.sessions = sessions;
+                                this.subscription.unsubscribe();
+                              }, () => {
+                                this.errorMessage = 'Error getting sessions';
+                                loader.dismissAll();
+                              }
+                            );
   }
 
   getHeader(record, recordIndex, records): string {
