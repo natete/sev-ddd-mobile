@@ -1,7 +1,7 @@
 <ion-menu [content]="content">
   <ion-header>
     <ion-toolbar>
-      <ion-title>Seville DrupalDevDays</ion-title>
+      <ion-title class="sidebar-title">Seville DrupalDevDays</ion-title>
     </ion-toolbar>
   </ion-header>
 
@@ -9,9 +9,9 @@
     <ion-list>
       <ion-list-header>Program</ion-list-header>
 
-      <button menuClose ion-item *ngFor="let page of pages" (click)="goToDay(page)" icon-left>
+      <button menuClose ion-item *ngFor="let page of pages" (click)="goToDay(page)" icon-left text-uppercase>
         <ion-icon name="calendar"></ion-icon>
-        {{page.date.format('DD dddd').toUpperCase()}}
+        {{page.date.format('DD dddd')}}
       </button>
     </ion-list>
   </ion-content>
