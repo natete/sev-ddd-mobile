@@ -34,7 +34,7 @@ export class SessionsService {
         .get(`${this.drupalUrl}/program/${dateCode}`)
         .map(data => data.json() as RawSession[])
         .map(rawSessions => rawSessions.map(rawSession => this.transformToSession(rawSession)))
-        .map(sessions => sessions.sort((s1, s2) => s1.startTime.localeCompare(s2.startTime)))
+        .map((sessions: Session[]) => sessions.sort((s1, s2) => s1.startTime.localeCompare(s2.startTime)))
         .subscribe(sessions => this.addSpeakersToSession(sessions));
 
     return this.sessionsStream.asObservable();

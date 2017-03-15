@@ -5,7 +5,6 @@ import { Splashscreen } from '@ionic-native/splashscreen';
 import * as moment from 'moment';
 import { DayPage } from '../pages/day/day.page';
 import { CalendarService } from '../providers/calendar/calendar.service';
-import { NotificationsService } from '../providers/notifications/notifications.service';
 
 @Component({
   templateUrl: 'app.html'
@@ -22,8 +21,8 @@ export class MyApp {
   ];
 
   constructor(platform: Platform,
-              private calendarService: CalendarService,
-              private notificationsService: NotificationsService) {
+              private calendarService: CalendarService) {
+    // private notificationsService: NotificationsService) {
     platform.ready()
             .then(() => {
               // Okay, so the platform is ready and our plugins are available.
@@ -31,7 +30,7 @@ export class MyApp {
               StatusBar.styleDefault();
               Splashscreen.hide();
 
-              this.notificationsService.init();
+              // this.notificationsService.init();
 
               this.calendarService
                   .init()

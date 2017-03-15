@@ -9,7 +9,8 @@
     <ion-list>
       <ion-list-header>Program</ion-list-header>
 
-      <button menuClose ion-item *ngFor="let page of pages" (click)="goToDay(page)">
+      <button menuClose ion-item *ngFor="let page of pages" (click)="goToDay(page)" icon-left>
+        <ion-icon name="calendar"></ion-icon>
         {{page.date.format('DD dddd').toUpperCase()}}
       </button>
     </ion-list>
