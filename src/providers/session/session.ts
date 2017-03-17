@@ -42,7 +42,8 @@ export class Session {
     Target: ${this.target}
     Speakers: ${this.getSpeakers()}
     
-    ${this.description}
+    ${String(this.description)
+      .replace(/<[^>]+>/gm, '')}
 `
   }
 
