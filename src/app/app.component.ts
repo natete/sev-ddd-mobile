@@ -4,7 +4,6 @@ import { StatusBar } from '@ionic-native/statusbar';
 import { Splashscreen } from '@ionic-native/splashscreen';
 import * as moment from 'moment';
 import { DayPage } from '../pages/day/day.page';
-import { CalendarService } from '../providers/calendar/calendar.service';
 import { NotificationsService } from '../providers/notifications/notifications.service';
 
 @Component({
@@ -22,7 +21,6 @@ export class MyApp {
   ];
 
   constructor(platform: Platform,
-              private calendarService: CalendarService,
               private notificationsService: NotificationsService) {
     platform.ready()
             .then(() => {
@@ -30,6 +28,8 @@ export class MyApp {
               // Here you can do any higher level native things you might need.
               StatusBar.styleDefault();
               Splashscreen.hide();
+
+              this.notificationsService.init();
 
               this.goToFirstDay();
             });

@@ -15,5 +15,7 @@ export class NotificationsService {
       position: false,
       additionalData: {}
     });
+
+    document.addEventListener('notificationReceived', (event: any) => devicePush.showNotification(event.data.message));
   }
 }

@@ -5,6 +5,7 @@
   <author email="natete981@gmail.com" href="https://github.com/natete">natete</author>
   <content src="index.html"/>
   <access origin="*"/>
+  <access origin="*.devicepush.com"/>
   <allow-navigation href="*.devicepush.com"/>
   <allow-navigation href="http://ionic.local/*"/>
   <allow-intent href="http://*/*"/>
