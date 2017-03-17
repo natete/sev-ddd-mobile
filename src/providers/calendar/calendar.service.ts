@@ -8,7 +8,6 @@ import * as moment from 'moment';
 @Injectable()
 export class CalendarService {
 
-  private hasReadWritePermission: boolean;
   CALENDAR_NAME = 'Seville DrupalDevDays';
   CALENDAR_COLOR = '#28A8E0';
   CALENDAR_OPTIONS: CalendarOptionsExtended = {
@@ -20,21 +19,15 @@ export class CalendarService {
   constructor() { }
 
   /**
-   * Initializes the service checking if the application has permission to use the calendar and then checking if the
-   * DrupalDevDays calendar exists.
-   * @returns {Promise<void>} resolves when everything has been checked.
+   * Add the given session to the calendar in the given date.
+   * @param session the session to be added
+   * @param date
+   * @returns {Promise<TResult|void>}
    */
-  init(): Promise<void> {
-    return Calendar.hasReadWritePermission()
-                   .then(hasReadWritePermission => {
-                     this.hasReadWritePermission = hasReadWritePermission;
-
-                     if (hasReadWritePermission) {
-                       return this.initDDDCalendar();
-                     } else {
-                       return Promise.resolve();
-                     }
-                   });
+  addSession(session: Session, date: string): Promise<any> {
+    return this.initDDDCalendar()
+               .then(() => this.createSession(session, date))
+               .catch(() => Promise.reject(null));
   }
 
   /**
@@ -45,15 +38,8 @@ export class CalendarService {
   initDDDCalendar(): Promise<void> {
 
     return Calendar.listCalendars()
-                   .then((calendars: any[]) => this.handleListOfCalendars(calendars));
-  }
-
-  addSession(session: Session, date: string): Promise<any> {
-    return this.initDDDCalendar()
-               .then(
-                 () => this.createSession(session, date),
-                 () => this.hasReadWritePermission = false
-               );
+                   .then((calendars: any[]) => this.handleListOfCalendars(calendars),
+                     () => Promise.reject(null));
   }
 
   private handleListOfCalendars(calendars: any[]): Promise<any> {
@@ -63,7 +49,7 @@ export class CalendarService {
       this.CALENDAR_OPTIONS.calendarId = drupalDevDaysCalendar.id;
       return Promise.resolve();
     } else {
-      console.log('creating calendar');
+
       return Calendar
         .createCalendar(this.CALENDAR_OPTIONS)
         .then(calendarId => this.CALENDAR_OPTIONS.calendarId = calendarId);
@@ -85,7 +71,7 @@ export class CalendarService {
       .findEventWithOptions(
         session.name,
         'Seville, El Fuerte de Isla Mágica',
-        session.getSessionNotes(),
+        null,
         startDate.toDate(),
         endDate.toDate(),
         this.CALENDAR_OPTIONS
