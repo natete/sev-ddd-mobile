@@ -5,6 +5,7 @@ import 'rxjs/add/operator/do';
 import { Session } from '../../providers/session/session';
 import { CalendarService } from '../../providers/calendar/calendar.service';
 import { SessionsService } from '../../providers/session/sessions.service';
+import { ErrorPage } from '../error/error';
 
 @Component({
   selector: 'page-detail',
@@ -26,7 +27,6 @@ export class DetailPage {
   }
 
   ionViewDidLoad() {
-    this.errorMessage = null;
 
     const loader = this.loadingCtrl.create({
       content: 'Loading session...'
@@ -48,7 +48,7 @@ export class DetailPage {
           session => this.session = session,
           () => {
             loader.dismissAll();
-            this.errorMessage = 'Error getting session details';
+            this.navCtrl.setRoot(ErrorPage, 'Error getting session details')
           }
         );
   }

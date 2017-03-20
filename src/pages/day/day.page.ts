@@ -6,6 +6,7 @@ import { SessionsService } from '../../providers/session/sessions.service';
 import 'rxjs/add/operator/do';
 import { Subscription } from 'rxjs';
 import { DetailPage } from '../detail/detail.page';
+import { ErrorPage } from '../error/error';
 
 @Component({
   selector: 'page-day',
@@ -14,7 +15,6 @@ import { DetailPage } from '../detail/detail.page';
 export class DayPage {
 
   private subscription: Subscription;
-  errorMessage: string;
   sessions: Session[] = [];
   title: string;
   sessionIcons = {
@@ -39,7 +39,6 @@ export class DayPage {
   }
 
   ionViewDidLoad() {
-    this.errorMessage = null;
 
     const loader = this.loadingCtrl.create({
       content: 'Loading sessions...'
@@ -54,8 +53,8 @@ export class DayPage {
                                 this.sessions = sessions;
                                 this.subscription.unsubscribe();
                               }, () => {
-                                this.errorMessage = 'Error getting sessions';
                                 loader.dismissAll();
+                                this.navCtrl.setRoot(ErrorPage, 'Error getting sessions');
                               }
                             );
   }

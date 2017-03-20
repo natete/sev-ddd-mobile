@@ -51,9 +51,7 @@ export class Session {
     if (!this.speakers) {
       return '';
     } else {
-      return this.speakers
-                 .map(speaker => speaker.name)
-                 .join(', ');
+      return this.speakers.map(speaker => speaker.name).join(', ');
     }
   }
 }

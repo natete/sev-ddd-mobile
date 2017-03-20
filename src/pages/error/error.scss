@@ -1,0 +1,18 @@
+page-error {
+  .error-msg {
+    color: white;
+    text-shadow: -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 1px 1px 0 black;
+    font-size: 3rem;
+  }
+
+  .error-img {
+    max-width: 85%;
+    border: 0;
+    position: absolute;
+    top: 50%;
+    transform: translate(0, -50%);
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+  }
+}
